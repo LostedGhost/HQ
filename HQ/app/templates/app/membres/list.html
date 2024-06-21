@@ -1,0 +1,67 @@
+{%extends 'app/base.html' %}
+{%block content%}
+<a href="/app/membres/add"><button class="btn btn-love mb-3"> <i class="bx bx-plus"></i> Ajouter</button></a>
+<h6 class="mb-3 text-uppercase p-3 shadow-sm bg-light-primary"><i class='lni lni-bookmark mx-3'></i>liste des membres</h6>
+				<hr/>
+				<div class="card">
+					<div class="card-body">
+						<div class="table-responsive">
+							<table id="my_table" class="table table-striped table-bordered" style="width:100%">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Nom</th>
+										<th>Prénom</th>
+                                        <th>Email</th>
+										<th>Sexe</th>
+										<th class="text-center">Date de naissance</th>
+                                        <th class="text-center">Photo</th>
+										<th>Actions</th>
+									</tr>
+								</thead>
+								<tbody>
+                                    {%for member in members%}
+                                    <tr>
+                                        <td>{{forloop.counter}}</td>
+                                        <td>{{member.nom}}</td>
+                                        <td>{{member.prenom}} </td>
+                                        <td>{{member.email}}</td>
+                                        <td class="text-center">
+                                            {%if member.sexe%}
+                                            <button class="btn btn-primary text-uppercase" disabled>masculin</button>
+                                            {%else%}
+                                            <button class="btn btn-love text-uppercase" disabled>féminin</button>
+                                            {%endif%}
+                                        </td>
+                                        <td class="text-center">{{member.date_naissance}} </td>
+                                        <td class="text-center">
+                                            <img src="{{member.actual_photo.photo.url}}" alt="Photo de profil" width="60px">
+                                        </td>
+                                        <td class="text-end">
+                                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#member{{member.id}}"><i class="bx bx-trash"></i></button>
+                                            <div class="modal fade" id="member{{member.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body text-center">Cette suppression est irréversible. <br>Souhaitez-vous poursuivre ?</div>
+                                                        <div class="modal-footer">
+                                                            <a href="/app/membres/delete/{{member.slug}}">
+                                                                <button type="button" class="btn btn-danger">Oui</button>
+                                                            </a>
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Non</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {%endfor%}
+                                </tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+{%endblock%}

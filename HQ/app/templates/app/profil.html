@@ -1,0 +1,140 @@
+{%extends 'app/base.html' %}
+{%load static%}
+{%block content%}
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="breadcrumb-title pe-3">Profil </div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a href="/app/"><i class="bx bx-home-alt"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Profil utilisateur</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="container">
+    <div class="main-body">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <img src="{%if user.actual_photo%}{{user.actual_photo.photo.url}}{%else%}{%static 'assets-admin/images/avatars/default-profil.png' %}{%endif%}" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
+                            <div class="mt-3">
+                                <h4>{{user.prenom_nom}}</h4>
+                                <p class="text-secondary mb-1">
+                                    {%if user.profil.id != 1 %}
+                                    <p class="designattion mb-0 text-center">{{user.statut}}</p>
+                                    {%else%}
+                                    <p class="designattion mb-0 text-center">{{user.profil.libelle}}</p>
+                                    {%endif%}
+                                </p>
+                                <p class="text-muted font-size-sm">{{user.age}} ans</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="card">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token  %}
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Nom</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" class="form-control" value="{{user.nom}}" name="nom" required/>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Prénom</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" class="form-control" value="{{user.prenom}}" name="prenom" required/>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Date de naissance</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="date" class="form-control" value="{{user.date_naissance_rep}}" name="date_naissance" required/>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Lieu de naissance</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" class="form-control" value="{{user.lieu_naissance}}" name="lieu_naissance" required/>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Biographie</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <textarea name="bio" required class="form-control" rows="3" placeholder="Biographie">{{user.bio}}</textarea>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Photo de profil</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="file" name="photo" accept=".jpg, .png, image/jpeg, image/png">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Email</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="email" class="form-control" value="{{user.email}}" name="email" readonly/>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Mot de passe</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="password" class="form-control" value="{{user.true_pass}}" name="password" required/>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Confirmer le mot de passe</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="password" class="form-control" name="repassword" required/>
+                                </div>
+                            </div>
+                            <div class="alert border-0 border-start border-5 border-warning alert-dismissible fade show py-2">
+                                <div class="d-flex align-items-center">
+                                    <div class="font-35 text-warning"><i class='bx bx-info-circle'></i>
+                                    </div>
+                                    <div class="ms-3">
+                                        <h6 class="mb-0 text-warning">Avertissement</h6>
+                                        <div>Le mot de passe doit être bien renseigné pour une modification des informations. Il peut aussi être modifier !</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="submit" class="btn btn-love px-4" value="Enregistrer" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}

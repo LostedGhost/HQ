@@ -1,0 +1,78 @@
+{%extends 'app/base.html' %}
+{%load static %}
+{% block content %}
+<div class="chat-wrapper">
+    <div class="chat-sidebar">
+        <div class="chat-sidebar-header">
+            <div class="d-flex align-items-center">
+                <div class="chat-user-online">
+                    <img src="{%if user.actual_photo%}{{user.actual_photo.photo.url}}{%else%}{%static 'assets-admin/images/avatars/default-profil.png' %}{%endif%}" width="45" height="45" class="rounded-circle" alt="" />
+                </div>
+                <div class="flex-grow-1 ms-2">
+                    <p class="mb-0">{{user.prenom_nom}}</p>
+                </div>
+            </div>
+            <div class="mb-3"></div>
+            <div class="input-group input-group-sm"> 
+                <input type="text" class="form-control" placeholder="People, groups, & messages"><span class="input-group-text bg-transparent"><i class='bx bx-search'></i></span>
+            </div>
+        </div>
+        <div class="chat-sidebar-content">
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-Chats">
+                    <div class="chat-list">
+                        <div class="list-group list-group-flush">
+                            {%if not user.conversations.exists%}
+                            <a href="/app/" class="">
+                                <div class="d-flex">
+                                    <div class="flex-grow-1 ms-2 text-center p-2">
+                                        <h6 class="mb-0 chat-title">Aucune conversation active</h6>
+                                        <p class="mb-0 chat-msg">Trouvez un membre avec qui <strong class="text-love text-uppercase">quester</strong></p>
+                                    </div>
+                                </div>
+                            </a>
+                            {%else%}
+                            {%for conv in user.conversations%}
+                            <a href="/app/conversations/membre/{%if conv.user1.id == user.id %}{{conv.user2.slug}}{%else%}{{conv.user1.slug}}{%endif%}" class="list-group-item {%if conv.user1.id == member.id or conv.user2.id == member.id %} active {%endif%}">
+                                <div class="d-flex">
+                                    <div class="chat-user-online">
+                                        <img src="{%if conv.user1.id == user.id %}{%if conv.user2.actual_photo%}{{conv.user2.actual_photo.photo.url}}{%else%}{%static 'assets-admin/images/avatars/default-profil.png' %}{%endif%}{%else%}{%if conv.user1.actual_photo%}{{conv.user1.actual_photo.photo.url}}{%else%}{%static 'assets-admin/images/avatars/default-profil.png' %}{%endif%}{%endif%}" width="42" height="42" class="rounded-circle" alt="" />
+                                    </div>
+                                    <div class="flex-grow-1 ms-2">
+                                        <h6 class="mb-0 chat-title">{%if conv.user1.id == user.id %}{{conv.user2.nom_prenom}} {%else%}{{conv.user1.nom_prenom}}{%endif%}</h6>
+                                        <p class="mb-0 chat-msg to_affiche">{{conv.last_message.truncate_me}}</p>
+                                    </div>
+                                    <div class="chat-time">{{conv.last_date}}</div>
+                                </div>
+                            </a>
+                            {%endfor%}
+                            {%endif%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="chat-header d-flex align-items-center">
+        <div class="chat-toggle-btn"><i class='bx bx-menu-alt-left'></i>
+        </div>
+        <div>
+        </div>
+        <div class="chat-top-header-menu ms-auto">
+            <a href="/app/">
+                <div>
+                    <img src="{%static 'assets-admin/images/logo-icon.png' %}" class="logo-icon" alt="logo icon">
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="chat-content">
+    </div>
+    <div class="d-flex align-items-center">
+        
+    </div>
+    <!--start chat overlay-->
+    <div class="overlay chat-toggle-btn-mobile"></div>
+    <!--end chat overlay-->
+</div>
+{%endblock%}

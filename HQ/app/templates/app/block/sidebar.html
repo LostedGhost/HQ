@@ -1,0 +1,80 @@
+{%load static%}
+
+<div class="sidebar-wrapper" data-simplebar="true">
+    <div class="sidebar-header">
+        <a href="/">
+            <div>
+                <img src="{%static 'assets-admin/images/logo-icon.png' %}" class="logo-icon" alt="logo icon">
+            </div>
+        </a>
+            <div>
+                <h4 class="logo-text">HeartQuest</h4>
+            </div>
+        
+        
+        <div class="toggle-icon ms-auto"><i class='bx bx-arrow-to-left'></i>
+        </div>
+    </div>
+    <!--navigation-->
+    {%if user.profil.id == 1%}
+    <ul class="metismenu" id="menu">
+        <li class="menu-label">ADMINISTRATION</li>
+        <li>
+        <li>
+            <a href="/app/">
+                <div class="parent-icon"><i class="bx bx-chart"></i>
+                </div>
+                <div class="menu-title">Statistiques HeartQuest</div>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class="bx bx-user-circle"></i>
+                </div>
+                <div class="menu-title">Utilisateurs</div>
+            </a>
+            <ul>
+                <li> <a href="/app/membres/list"><i class="bx bx-right-arrow-alt"></i>Liste</a>
+                </li>
+                <li> <a href="/app/membres/add"><i class="bx bx-right-arrow-alt"></i>Ajout utilisateur</a>
+                </li>
+            </ul>
+        </li>
+        
+        
+    </ul>
+    {%else%}
+    <ul class="metismenu" id="menu">
+        <li class="menu-label">Gestion compte</li>
+        <li>
+            <a href="/app/">
+                <div class="parent-icon"><i class="bx bx-home-heart"></i>
+                </div>
+                <div class="menu-title">Mon fil d'actualités</div>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class="bx bx-category"></i>
+                </div>
+                <div class="menu-title">Mes publications</div>
+            </a>
+            <ul>
+                <li> <a href="/app/my_publications/list"><i class="bx bx-right-arrow-alt"></i>Vue Globale</a>
+                </li>
+                <li> <a href="/app/my_publications/add"><i class="bx bx-right-arrow-alt"></i>Nouvelle Publication</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="/app/centre_interets">
+                <div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
+                </div>
+                <div class="menu-title">Centres d'intérêts</div>
+            </a>
+        </li>
+        
+    </ul>
+    {%endif%}
+    <!--end navigation-->
+</div>

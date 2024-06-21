@@ -1,0 +1,73 @@
+.bg-true-love{
+    background-color: rgba(147, 229, 209, 0.747);
+}
+
+.btn-love{
+    background-color: rgb(255, 0, 200);
+    color: white;
+}
+.btn-love:hover{
+    background-color: rgb(236, 67, 200);
+    color: white;
+}
+.btn-love-rounded{
+    background-color: rgb(255, 0, 200);
+    border-radius: 50;
+}
+.text-love{
+    color: rgb(255, 0, 200);
+}
+
+.file-info {
+    display: none;
+    margin-top: 10px;
+}
+.file-info span, .file-info img, .file-info video, .file-info audio {
+    margin-right: 10px;
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.m-simple{
+    margin-right: 3px !important;
+}
+
+.focus{
+    outline: 2px solid rgb(137, 137, 228);
+}
+
+.scrollable-div {
+    width: 300px;
+    height: 200px;
+    overflow: auto;
+    border: 1px solid #ccc;
+}
+
+.element {
+    height: 50px;
+    margin: 10px;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.preview {
+    margin-top: 20px;
+}
+
+.preview img, .preview video {
+    max-width: 100%;
+    max-height: 300px;
+}
+
+.preview pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    max-width: 100%;
+    max-height: 300px;
+    overflow: auto;
+    background-color: #f8f8f8;
+    padding: 10px;
+    border: 1px solid #ccc;
+}

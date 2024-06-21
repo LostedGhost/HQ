@@ -1,0 +1,46 @@
+{%extends 'app/base.html' %}
+{%load static%}
+{%block content%}
+<div class="row">
+    <a href="/app/my_publications/add" class="col-sm-2"><button class="btn btn-love mb-3"> <i class="bx bx-arrow-to-left"></i> Retour</button></a>
+    <h6 class="mb-3 text-uppercase p-3 shadow-sm bg-light-primary col-sm-8 text-center"><i class='lni lni-bookmark mx-3'></i>Création de publication</h6>
+</div>
+
+<hr class="mb-3"/>
+<div class="row">
+<div id="type_publication" class="col-xl-7 mx-auto">
+    <div class="card border-top border-0 border-4 border-primary">
+        <div class="card-body p-5">
+            <div class="card-title d-flex align-items-center">
+                <div><i class="bx bxs-send me-1 font-22 text-primary"></i>
+                </div>
+                <h5 class="mb-0 text-primary">Publication</h5>
+            </div>
+            <hr>
+            <form class="row g-3" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="col-12">
+                    <label class="form-label">Contenu</label>
+                    <textarea class="form-control" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..." rows="5" required name="texte"></textarea>
+                </div>
+                {%if type == 3 or type == 4 %}
+                <div class="col-md-12">
+                    <label class="form-label">Image</label>
+                    <input type="file" class="form-control" name="image" required accept=".jpg, .png, image/jpeg, image/png">
+                </div>
+                {%endif%}
+                {%if type == 5 or type == 6 %}
+                <div class="col-md-12">
+                    <label for="inputCity" class="form-label">Vidéo</label>
+                    <input type="file" class="form-control" name="video" required accept=".mp4, .mov, .avi, .wmv, .flv, .webm, .mkv, video/mp4, video/quicktime, video/x-msvideo, video/x-ms-wmv, video/x-flv, video/webm, video/x-matroska">
+                </div>
+                {%endif%}
+                <div class="col-12 mx-auto text-center">
+                    <button type="submit" class="btn btn-primary"><i class="bx bxs-send"></i>Publier</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+{%endblock%}

@@ -1,0 +1,380 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="fr">
+
+
+<!-- Mirrored from codervent.com/HeartQuest/demo/vertical/authentication-reset-password.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 19 Aug 2021 08:02:35 GMT -->
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--favicon-->
+	<link rel="icon" href="{%static 'assets-admin/images/favicon-32x32.png' %}" type="image/png" />
+	<!-- loader-->
+	<link href="{%static 'assets-admin/css/pace.min.css' %}" rel="stylesheet" />
+	<script src="{%static 'assets-admin/js/pace.min.js' %}"></script>
+    <link href="{%static 'assets-admin/plugins/smart-wizard/css/smart_wizard_all.min.css'%}" rel="stylesheet" type="text/css" />
+	<!-- Bootstrap CSS -->
+	<link href="{%static 'assets-admin/css/bootstrap.min.css' %}" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&amp;display=swap" rel="stylesheet">
+	<link href="{%static 'assets-admin/css/app.css' %}" rel="stylesheet">
+    <link href="{%static 'assets-admin/css/ludel.css' %}" rel="stylesheet">
+	<link href="{%static 'assets-admin/css/icons.css' %}" rel="stylesheet">
+    
+	<title>App - HeartQuest</title>
+</head>
+
+<body class="bg-lock-screen">
+	<!-- wrapper -->
+	<div class="wrapper">
+		<div class="authentication-reset-password d-flex align-items-center justify-content-center">
+			<div class="row">
+				<div class="col-12 col-lg-10 mx-auto">
+					<div class="card">
+						<div class="row g-0">
+							<div class="col-lg-7 border-end">
+								<div class="card-body mt-5">
+									<div class="p-5 mt-5">
+										<div class="text-center mt-6">
+											<img src="{%static 'assets-admin/images/logo-img.png' %}" width="180" alt="">
+										</div>
+										<h4 class="mt-5 font-weight-bold text-center">Inscription</h4>
+                                        <p class="text-muted text-center">Avez-vous un compte ? <a href="{%url 'login'%}" class="">Connectez-vous</a></p>
+										<br />
+								
+								<!-- SmartWizard html -->
+								<div id="smartwizard">
+									<ul class="nav">
+										<li class="nav-item text-center">
+											<a class="nav-link" href="#pers">	<strong>Informations personnelles</strong>
+												<br>Nom, Prénom et Sexe</a>
+										</li>
+										<li class="nav-item text-center">
+											<a class="nav-link" href="#about">	<strong>A propos</strong>
+												<br>Date et lieu de naissance; Biographie et Photo de profil</a>
+										</li>
+										<li class="nav-item text-center">
+											<a class="nav-link" href="#login">	<strong>Identifiants</strong> 
+												<br>E-mail et mot de passe</a>
+										</li>
+                                        <li class="nav-item text-center">
+											<a class="nav-link" href="#recap">	<strong>Récapitulatifs</strong>
+												<br>Point des informations renseignées</a>
+										</li>
+									</ul>
+									<div class="tab-content">
+										<form method="POST" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <div id="pers" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
+                                                <h3>Informations personnelles</h3>
+                                                <div class="row pb-5">
+                                                    <div class="col-sm-6">
+                                                        <label class="form-label">Nom</label>
+                                                        <input type="text" class="form-control" name="nom" placeholder="TOPANOU" id="form_nom" required>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label class="form-label">Prénom</label>
+                                                        <input type="text" class="form-control" name="prenom" placeholder="Ludel" id="form_prenom" required>
+                                                    </div>
+                                                    <div class="row px-5 pt-4">
+                                                        <label class="form-label col-sm-4"><strong>Sexe</strong></label>
+                                                        <div class="form-check col-sm-3">
+                                                            <input class="form-check-input" type="radio" name="sexe" id="masculin" checked value="1">
+                                                            <label class="form-check-label">Masculin</label>
+                                                        </div>
+                                                        <div class="form-check col-sm-3">
+                                                            <input class="form-check-input" type="radio" name="sexe" id="feminin" value="0">
+                                                            <label class="form-check-label">Féminin</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="about" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
+                                                <h3>A Propos</h3>
+                                                <div class="row">
+                                                    <div class="col-sm-6 mb-3">
+                                                        <label class="form-label">Date de naissance:</label>
+                                                        <input type="date" class="form-control" name="dateNaissance" id="form_dateNaissance" required>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label for="inputLastName" class="form-label">Lieu de naissance:</label>
+                                                        <input type="text" class="form-control" name="lieuNaissance" placeholder="Cotonou" id="form_lieuNaissance" required>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <label class="form-label">Biographie</label>
+										                <textarea class="form-control" name="bio" placeholder="Biographie" rows="5" id="form_bio" required></textarea>
+                                                    </div>
+                                                    <div class="col-sm-12 mt-3">
+                                                        <label class="form-label">Photo de profil: </label>
+                                                        <input type="file" name="photo" accept=".jpg, .png, image/jpeg, image/png" id="form_photo" required>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="login" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
+                                                <h3>Identifiants</h3>
+                                                <div>
+                                                    <div class="col-sm-12">
+                                                        <label class="form-label">Addresse e-mail</label>
+                                                        <input type="email" class="form-control" placeholder="example@gmail.com" name="email" id="form_email" required>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <label class="form-label">Entrez votre mot de passe</label>
+                                                        <div class="input-group" id="show_hide_password">
+                                                            <input required type="password" class="form-control border-end-0" placeholder="**********" name="password" id="form_password"> <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-show'></i></a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <label class="form-label">Vérifier le mot de passe</label>
+                                                        <div class="input-group" id="show_hide_repassword">
+                                                            <input required type="password" class="form-control border-end-0" placeholder="**********" name="repassword" id="form_repassword"> <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-show'></i></a>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                            <div id="recap" class="tab-pane" role="tabpanel" aria-labelledby="step-1">
+                                                <h3>Récapitulatifs</h3>
+                                                <div class="row pb-5">
+                                                    <div class="col-sm-6">
+                                                        <label class="form-label">Nom</label>
+                                                        <input type="text" class="form-control" id="nom" readonly>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label class="form-label">Prénom</label>
+                                                        <input type="text" class="form-control" id="prenom" readonly>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label class="form-label"><strong>Sexe</strong>:</label>
+                                                        <input type="text" class="form-control" id="sexe" readonly>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label class="form-label">E-mail</label>
+                                                        <input type="email" class="form-control" id="email" readonly>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label class="form-label">Date de naissance</label>
+                                                        <input type="date" class="form-control" id="dateNaissance" readonly>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label class="form-label"><strong>Lieu de naissance</strong>:</label>
+                                                        <input type="text" class="form-control" id="lieuNaissance" readonly>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <label class="form-label">Biographie</label>
+                                                        <textarea id="bio" readonly class="form-control" rows="5"></textarea>
+                                                    </div>
+                                                    <div class="col-sm-12 mt-5">
+                                                        <label class="form-label">Photo de profil</label>
+                                                        <img src="" alt="Photo de profil" id="photo" class="col-sm-5 mx-3 w-25 text-center " width="200px">
+                                                    </div>
+                                                    <div class="text-center my-4">
+                                                        <button type="submit" class="btn btn-love" disabled id="btn-valid"><i class="bx bx-heart"></i> S'inscrire</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        </form>
+									</div>
+										
+								    </div>
+								</div>
+							</div>
+							</div>
+							<div class="col-lg-5">
+								<img src="{%static 'assets-admin/images/login-images/inscription.jpg' %}" class="card-img login-img h-100" alt="...">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end wrapper -->
+     <!-- Bootstrap JS -->
+	<script src="{%static 'assets-admin/js/bootstrap.bundle.min.js' %}"></script>
+	<!--plugins-->
+	<script src="{%static 'assets-admin/js/jquery.min.js' %}"></script>
+	<script src="{%static 'assets-admin/plugins/simplebar/js/simplebar.min.js' %}"></script>
+	<script src="{%static 'assets-admin/plugins/metismenu/js/metisMenu.min.js' %}"></script>
+	<script src="{%static 'assets-admin/plugins/perfect-scrollbar/js/perfect-scrollbar.js' %}"></script>
+    <script src="{%static 'assets-admin/plugins/smart-wizard/js/jquery.smartWizard.min.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#form_nom').on('blur change', function (e) {
+                $('#nom').val($(this).val());
+            });
+            $('#form_prenom').on('blur change', function (e) {
+                $('#prenom').val($(this).val());
+            });
+            
+            $('#form_lieuNaissance').on('blur change', function (e) {
+                $('#lieuNaissance').val($(this).val());
+            });
+            $('#form_dateNaissance').on('blur change', function (e) {
+                $('#dateNaissance').val($(this).val());
+                if ($('#masculin').is(':checked')) {
+                    $('#sexe').val("MASCULIN");
+                };
+                if ($('#feminin').is(':checked')) {
+                    $('#sexe').val("FEMININ");
+                };
+            });
+            $('#form_bio').on('blur change', function(e){
+                $('#bio').val($(this).val());
+            });
+            $('#form_photo').on('blur change', function (e) {
+                var file = e.target.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    var reader = new FileReader();
+                    reader.onload = function(ev) {
+                        $('#photo').attr('src', ev.target.result).show();
+                    }
+                    reader.readAsDataURL(file);
+                } else {
+                    $('#photo').hide();
+                }
+            });
+            $('#form_email').on('blur change', function(e){
+                $('#email').val($(this).val());
+            });
+            $('#form_repassword').on('blur change', function(e){
+                if ($('#form_repassword').val() == $('#form_password').val() && $('#form_password').val() != '' ){
+                    $('#btn-valid').removeAttr('disabled');
+                }
+            });
+        });
+    </script>
+    <script>
+		$(document).ready(function () {
+			// Toolbar extra buttons
+			var btnCancel = $('<button></button>').text('Annuler').addClass('btn btn-danger').on('click', function () {
+				$('#smartwizard').smartWizard("reset");
+                window.location.href = window.location.origin + "/";
+                $('form').each(function() {
+                    this.reset();
+                });
+			});
+			// Step show event
+			$("#smartwizard").on("showStep", function (e, anchorObject, stepNumber, stepDirection, stepPosition) {
+				$("#prev-btn").removeClass('disabled');
+				$("#next-btn").removeClass('disabled');
+				if (stepPosition === 'first') {
+					$("#prev-btn").addClass('disabled');
+				} else if (stepPosition === 'last') {
+					$("#next-btn").addClass('disabled');
+				} else {
+					$("#prev-btn").removeClass('disabled');
+					$("#next-btn").removeClass('disabled');
+				}
+			});
+			// Smart Wizard
+			$('#smartwizard').smartWizard({
+				selected: 0,
+				theme: 'dots',
+				transition: {
+					animation: 'slide-swing', // Effect on navigation, none/fade/slide-horizontal/slide-vertical/slide-swing
+				},
+				toolbarSettings: {
+					toolbarPosition: 'both', // both bottom
+					toolbarExtraButtons: []
+				}
+			});
+			// External Button Events
+			$("#reset-btn").on("click", function () {
+				// Reset wizard
+				$('#smartwizard').smartWizard("reset");
+				return true;
+			});
+			$("#prev-btn").on("click", function () {
+				// Navigate previous
+				$('#smartwizard').smartWizard("prev");
+				return true;
+			});
+			$("#next-btn").on("click", function () {
+				// Navigate next
+				$('#smartwizard').smartWizard("next");
+				return true;
+			});
+		});
+	</script>
+    <script>
+		$(document).ready(function () {
+			$("#show_hide_password a").on('click', function (event) {
+				event.preventDefault();
+				if ($('#show_hide_password input').attr("type") == "text") {
+					$('#show_hide_password input').attr('type', 'password');
+					$('#show_hide_password i').addClass("bx-show");
+					$('#show_hide_password i').removeClass("bx-hide");
+				} else if ($('#show_hide_password input').attr("type") == "password") {
+					$('#show_hide_password input').attr('type', 'text');
+					$('#show_hide_password i').removeClass("bx-show");
+					$('#show_hide_password i').addClass("bx-hide");
+				}
+			});
+
+            $("#show_hide_repassword a").on('click', function (event) {
+				event.preventDefault();
+				if ($('#show_hide_repassword input').attr("type") == "text") {
+					$('#show_hide_repassword input').attr('type', 'password');
+					$('#show_hide_repassword i').addClass("bx-show");
+					$('#show_hide_repassword i').removeClass("bx-hide");
+				} else if ($('#show_hide_repassword input').attr("type") == "password") {
+					$('#show_hide_repassword input').attr('type', 'text');
+					$('#show_hide_repassword i').removeClass("bx-show");
+					$('#show_hide_repassword i').addClass("bx-hide");
+				}
+			});
+		});
+	</script>
+    <script>
+        $(document).ready(function() {
+            $('.file-to-see').each(function() {
+                // Créez dynamiquement la div pour afficher les informations du fichier
+                var fileInfoDiv = $('<div class="file-info text-center"><img class="file-preview" style="display:none;" /><video class="file-preview" style="display:none;" controls></video><audio class="file-preview" style="display:none;" controls></audio><button type="button" class="remove-file btn btn-danger"><i class="bx bx-trash"></></button></div>');
+                $(this).after(fileInfoDiv);
+
+                // Gérez le changement de fichier
+                $(this).on('change', function() {
+                    var file = this.files[0];
+                    var fileInfo = $(this).next('.file-info');
+                    var filePreview = fileInfo.find('.file-preview');
+                    
+                    if (file) {
+                        fileInfo.show();
+
+                        // Afficher l'aperçu de l'image, de la vidéo ou de l'audio
+                        var fileURL = URL.createObjectURL(file);
+                        filePreview.hide(); // Cacher toutes les previews d'abord
+
+                        if (file.type.startsWith('image/')) {
+                            fileInfo.find('img').attr('src', fileURL).show();
+                        } else if (file.type.startsWith('video/')) {
+                            fileInfo.find('video').attr('src', fileURL).show();
+                        } else if (file.type.startsWith('audio/')) {
+                            fileInfo.find('audio').attr('src', fileURL).show();
+                        } else {
+                            fileName.text(file.name + " (format non supporté pour l'aperçu)");
+                        }
+                    } else {
+                        fileInfo.hide();
+                    }
+                });
+
+                // Gérez la suppression du fichier
+                fileInfoDiv.find('.remove-file').on('click', function() {
+                    var input = $(this).closest('.file-info').prev('.file-to-see');
+                    input.val('');
+                    $(this).closest('.file-info').find('.file-preview').hide().attr('src', '');
+                    $(this).closest('.file-info').hide();
+                });
+            });
+        });
+    </script>
+    <script src="{%static 'assets-admin/plugins/fancy-file-uploader/jquery.ui.widget.js' %}"></script>
+    <script src="{%static 'assets-admin/js/app.js' %}"></script>
+</body>
+
+
+<!-- Mirrored from codervent.com/HeartQuest/demo/vertical/authentication-reset-password.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 19 Aug 2021 08:02:35 GMT -->
+</html>

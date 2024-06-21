@@ -1,0 +1,70 @@
+{%load static%}
+
+<!doctype html>
+<html lang="fr">
+
+
+<!-- Mirrored from codervent.com/HeartQuest/demo/vertical/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 19 Aug 2021 07:51:46 GMT -->
+{%include 'app/block/head.html'%}
+
+<body>
+	<!--wrapper-->
+	<div class="wrapper">
+		<!--sidebar wrapper -->
+		{%include 'app/block/sidebar.html'%}
+		<!--end sidebar wrapper -->
+		<!--start header -->
+		{%include 'app/block/header.html'%}
+		<!--end header -->
+
+		<!--start page wrapper -->
+		<div class="page-wrapper">
+			<div class="page-content">
+				{%if success %}
+				<div class="alert alert-success border-0 bg-success alert-dismissible fade show py-2">
+					<div class="d-flex align-items-center">
+						<div class="font-35 text-white"><i class='bx bxs-check-circle'></i>
+						</div>
+						<div class="ms-3">
+							<h6 class="mb-0 text-white">Succès</h6>
+							<div class="text-white">{{success}}</div>
+						</div>
+					</div>
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+				{%endif%}
+				{%if error %}
+				<div class="alert alert-danger border-0 bg-danger alert-dismissible fade show py-2">
+					<div class="d-flex align-items-center">
+						<div class="font-35 text-white"><i class='bx bxs-message-x'></i>
+						</div>
+						<div class="ms-3">
+							<h6 class="mb-0 text-white">Erreur</h6>
+							<div class="text-white">{{error}}</div>
+						</div>
+					</div>
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+				{%endif%}
+				{%block content%}
+                {%endblock%}
+			</div>
+		</div>
+		<!--end page wrapper -->
+		<!--start overlay-->
+		<div class="overlay toggle-icon"></div>
+		<!--end overlay-->
+		<!--Start Back To Top Button--> <a href="javaScript:;" class="back-to-top"><i class='bx bxs-heart'></i></a>
+		<!--End Back To Top Button-->
+		<footer class="page-footer">
+			<p class="mb-0">Copyright © 2024. All right reserved.</p>
+		</footer>
+	</div>
+	<!--end wrapper-->
+	
+	{%include 'app/block/scripts.html'%}
+</body>
+
+
+<!-- Mirrored from codervent.com/HeartQuest/demo/vertical/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 19 Aug 2021 07:53:22 GMT -->
+</html>

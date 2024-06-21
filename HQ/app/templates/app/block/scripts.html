@@ -1,0 +1,152 @@
+{%load static%}
+
+<!-- Bootstrap JS -->
+<script src="{%static 'assets-admin/js/bootstrap.bundle.min.js' %}"></script>
+<!--plugins-->
+<script src="{%static 'assets-admin/js/jquery.min.js' %}"></script>
+<script src="{%static 'assets-admin/plugins/simplebar/js/simplebar.min.js' %}"></script>
+<script src="{%static 'assets-admin/plugins/metismenu/js/metisMenu.min.js' %}"></script>
+<script src="{%static 'assets-admin/plugins/perfect-scrollbar/js/perfect-scrollbar.js' %}"></script>
+<script src="{%static 'assets-admin/plugins/vectormap/jquery-jvectormap-2.0.2.min.js' %}"></script>
+<script src="{%static 'assets-admin/plugins/vectormap/jquery-jvectormap-world-mill-en.js' %}"></script>
+<script src="{%static 'assets-admin/plugins/chartjs/js/Chart.min.js' %}"></script>
+<script src="{%static 'assets-admin/plugins/chartjs/js/Chart.extension.js' %}"></script>
+<script src="{%static 'assets-admin/plugins/sparkline-charts/jquery.sparkline.min.js' %}"></script>
+<script src="{%static 'assets-admin/plugins/smart-wizard/js/jquery.smartWizard.min.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        // Toolbar extra buttons
+        var btnCancel = $('<button></button>').text('Annuler').addClass('btn btn-danger').on('click', function () {
+            $('#smartwizard').smartWizard("reset");
+            $('form').each(function() {
+                this.reset();
+            });
+        });
+        // Step show event
+        $("#smartwizard").on("showStep", function (e, anchorObject, stepNumber, stepDirection, stepPosition) {
+            $("#prev-btn").removeClass('disabled');
+            $("#next-btn").removeClass('disabled');
+            if (stepPosition === 'first') {
+                $("#prev-btn").addClass('disabled');
+            } else if (stepPosition === 'last') {
+                $("#next-btn").addClass('disabled');
+            } else {
+                $("#prev-btn").removeClass('disabled');
+                $("#next-btn").removeClass('disabled');
+            }
+        });
+        // Smart Wizard
+        $('#smartwizard').smartWizard({
+            selected: 0,
+            theme: 'dots',
+            transition: {
+                animation: 'slide-swing', // Effect on navigation, none/fade/slide-horizontal/slide-vertical/slide-swing
+            },
+            toolbarSettings: {
+                toolbarPosition: 'both', // both bottom
+                toolbarExtraButtons: [btnCancel]
+            }
+        });
+        // External Button Events
+        $("#reset-btn").on("click", function () {
+            // Reset wizard
+            $('#smartwizard').smartWizard("reset");
+            return true;
+        });
+        $("#prev-btn").on("click", function () {
+            // Navigate previous
+            $('#smartwizard').smartWizard("prev");
+            return true;
+        });
+        $("#next-btn").on("click", function () {
+            // Navigate next
+            $('#smartwizard').smartWizard("next");
+            return true;
+        });
+    });
+</script>
+<script src="{%static 'assets-admin/plugins/fancy-file-uploader/jquery.ui.widget.js' %}"></script>
+<script src="{%static 'assets-admin/plugins/fancy-file-uploader/jquery.fileupload.js' %}"></script>
+<script src="{%static 'assets-admin/plugins/fancy-file-uploader/jquery.iframe-transport.js' %}"></script>
+<script src="{%static 'assets-admin/plugins/fancy-file-uploader/jquery.fancy-fileupload.js' %}"></script>
+<script>
+    $('#fancy-file-upload').FancyFileUpload({
+        params: {
+            action: 'fileuploader'
+        },
+        maxfilesize: 1000000
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('.file-to-see').each(function() {
+            // Créez dynamiquement la div pour afficher les informations du fichier
+            var fileInfoDiv = $('<div class="file-info"><span class="file-name"></span><button type="button" class="remove-file">Remove</button></div>');
+            $(this).after(fileInfoDiv);
+
+            // Gérez le changement de fichier
+            $(this).on('change', function() {
+                var file = this.files[0];
+                if (file) {
+                    $(this).next('.file-info').find('.file-name').text(file.name);
+                    $(this).next('.file-info').show();
+                } else {
+                    $(this).next('.file-info').find('.file-name').text('');
+                    $(this).next('.file-info').hide();
+                }
+            });
+
+            // Gérez la suppression du fichier
+            fileInfoDiv.find('.remove-file').on('click', function() {
+                var input = $(this).closest('.file-info').prev('.file-to-see');
+                input.val('');
+                $(this).closest('.file-info').find('.file-name').text('');
+                $(this).closest('.file-info').hide();
+            });
+        });
+    });
+</script>
+<!--notification js -->
+<script src="{%static 'assets-admin/plugins/notifications/js/lobibox.min.js' %}"></script>
+<script src="{%static 'assets-admin/plugins/notifications/js/notifications.min.js' %}"></script>
+<script src="{%static 'assets-admin/js/index.js' %}"></script>
+<script src="{%static 'assets-admin/plugins/datatable/js/jquery.dataTables.min.js' %}"></script>
+<script src="{%static 'assets-admin/plugins/datatable/js/dataTables.bootstrap5.min.js' %}"></script>
+<script>
+    $(document).ready(function() {
+        $('#my_table').DataTable();
+      } );
+</script>
+<script>
+    $(document).ready(function() {
+        $('.chooseType').on("click", function() {
+            var type = $(this).data('type');
+            window.location.href = window.location.origin + '/app/my_publications/add/type=' + type;
+        });
+      });
+</script>
+<script src="{%static 'assets-admin/plugins/select2/js/select2.min.js' %}"></script>
+<script>
+    $('.multiple-select').select2({
+        theme: 'bootstrap4',
+        width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+        placeholder: $(this).data('placeholder'),
+        allowClear: Boolean($(this).data('allow-clear')),
+    });
+</script>
+<script>
+    new PerfectScrollbar('.chat-list');
+    new PerfectScrollbar('.chat-content');
+</script>
+<script>
+    $(document).ready(function() {
+        // Ciblez l'élément vers lequel vous voulez défiler
+        const targetElement = $('#first-unseen')[0]; // [0] pour obtenir l'élément DOM natif
+        
+        // Utilisez scrollIntoView pour défiler jusqu'à l'élément
+        targetElement.scrollIntoView({ behavior: 'auto', block: 'center' });
+    });
+</script>
+<!--app JS-->
+<script src="{%static 'assets-admin/js/app.js' %}"></script>
+<script src="{%static 'assets-admin/js/ludel.js' %}"></script>

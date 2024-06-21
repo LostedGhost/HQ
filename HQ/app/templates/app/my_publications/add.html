@@ -1,0 +1,95 @@
+{%extends 'app/base.html' %}
+{%load static%}
+{%block content%}
+<div class="row">
+    <a href="/app/my_publications/list" class="col-sm-2"><button class="btn btn-love mb-3"> <i class="bx bx-arrow-to-left"></i> Retour</button></a>
+    <h6 class="mb-3 text-uppercase p-3 shadow-sm bg-light-primary col-sm-8 text-center"><i class='lni lni-bookmark mx-3'></i>Cliquez sur le type de publication que vous voulez effectuer</h6>
+</div>
+
+<hr class="mb-3"/>
+<div id="type_publication" class="row">
+{%for type in user.typePublications%}
+<div class="col-sm-4 chooseType cursor-pointer" data-type="{{type.id}}">
+    <h6 class="card-title text-center">{{type.libelle}}</h6>
+{%if type.id == 1%}
+    
+        <div class="card">
+            <div class="card-body">
+                <div>
+                    <h5 class="card-title"><img src="{%if user.actual_photo%}{{user.actual_photo.photo.url}}{%else%}{%static 'assets-admin/images/avatars/default-profil.png' %}{%endif%}" class="user-img mx-2" alt="user avatar">{{user.prenom_nom}}</h5>
+                </div>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+            <div class="card-footer bg-white text-end"> <small class="text-muted">Publié il y a 3 min</small>
+            </div>
+        </div>
+{%endif%}
+{%if type.id == 2%}
+    <div class="card">
+        <div class="card-body">
+            <div>
+                <h5 class="card-title"><img src="{%if user.actual_photo%}{{user.actual_photo.photo.url}}{%else%}{%static 'assets-admin/images/avatars/default-profil.png' %}{%endif%}" class="user-img mx-2" alt="user avatar">{{user.prenom_nom}}</h5>
+            </div>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <div class="text-center gap-2">
+                <a href="javascript:;" class="btn btn-love"><i class='bx bx-message'></i>Contacter</a>
+            </div>
+        </div>
+        <div class="card-footer bg-white text-end"> <small class="text-muted">Publié il y a 3 min</small>
+        </div>
+    </div>
+{%endif%}
+{%if type.id == 3%}
+<div class="card mb-3">
+    <img src="{%static 'assets-admin/images/gallery/08.png' %}" class="card-img-top w-100" alt="...">
+    <div class="card-body">
+        <h5 class="card-title"><img src="{%if user.actual_photo%}{{user.actual_photo.photo.url}}{%else%}{%static 'assets-admin/images/avatars/default-profil.png' %}{%endif%}" class="user-img mx-2" alt="user avatar">{{user.prenom_nom}}</h5>
+        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div>
+    <div class="card-footer bg-white text-end"> <small class="text-muted">Publié il y a 3 min</small>
+    </div>
+</div>
+{%endif%}
+{%if type.id == 4%}
+<div class="card mb-3">
+    <div class="card-body">
+        <h5 class="card-title"><img src="{%if user.actual_photo%}{{user.actual_photo.photo.url}}{%else%}{%static 'assets-admin/images/avatars/default-profil.png' %}{%endif%}" class="user-img mx-2" alt="user avatar">{{user.prenom_nom}}</h5>
+        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div>
+    <img src="{%static 'assets-admin/images/gallery/08.png' %}" class="card-img-top w-100" alt="...">
+    <div class="card-footer bg-white text-end"> <small class="text-muted">Publié il y a 3 min</small>
+    </div>
+</div>
+{%endif%}
+{%if type.id == 5%}
+<div class="card mb-3">
+    <video class="card-img-top w-100" controls>
+    <source src="{%static 'assets-admin/videos/test.mp4' %}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+    <div class="card-body">
+        <h5 class="card-title"><img src="{%if user.actual_photo%}{{user.actual_photo.photo.url}}{%else%}{%static 'assets-admin/images/avatars/default-profil.png' %}{%endif%}" class="user-img mx-2" alt="user avatar">{{user.prenom_nom}}</h5>
+        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div>
+    <div class="card-footer bg-white text-end"> <small class="text-muted">Publié il y a 3 min</small>
+    </div>
+</div>
+{%endif%}
+{%if type.id == 6%}
+<div class="card mb-3">
+    <div class="card-body">
+        <h5 class="card-title"><img src="{%if user.actual_photo%}{{user.actual_photo.photo.url}}{%else%}{%static 'assets-admin/images/avatars/default-profil.png' %}{%endif%}" class="user-img mx-2" alt="user avatar">{{user.prenom_nom}}</h5>
+        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div>
+    <video class="card-img-top w-100" controls>
+    <source src="{%static 'assets-admin/videos/test.mp4' %}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+    <div class="card-footer bg-white text-end"> <small class="text-muted">Publié il y a 3 min</small>
+    </div>
+</div>
+{%endif%}
+</div>
+{%endfor%}
+</div>
+{%endblock%}

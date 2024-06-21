@@ -1,0 +1,91 @@
+{%extends 'app/base.html' %}
+{%load static %}
+{%block content%}
+{%if user.profil.id == 1%}
+<div class="row row-cols-1 row-cols-md-2 row-cols-xl-2 row-cols-xxl-4">
+    <div class="col">
+      <div class="card radius-10 bg-gradient-cosmic">
+         <div class="card-body">
+             <div class="d-flex align-items-center">
+                 <div class="mx-auto text-center">
+                     <p class="mb-0 text-white">Total Membres</p>
+                     <h4 class="my-1 text-white">{{user.total_membre}} <i class="bx bx-user"></i></h4>
+                 </div>
+             </div>
+         </div>
+      </div>
+    </div>
+    <div class="col">
+     <div class="card radius-10 bg-gradient-ibiza">
+        <div class="card-body">
+            <div class="d-flex align-items-center">
+                <div class="mx-auto text-center">
+                    <p class="mb-0 text-white">Total Conversations</p>
+                    <h4 class="my-1 text-white">{{user.total_conversation}} <i class="bx bx-chat"></i></h4>
+                </div>
+            </div>
+        </div>
+     </div>
+   </div>
+   <div class="col">
+     <div class="card radius-10 bg-gradient-ohhappiness">
+        <div class="card-body">
+            <div class="d-flex align-items-center">
+                <div class="mx-auto text-center">
+                    <p class="mb-0 text-white">Total Publications</p>
+                    <h4 class="my-1 text-white">{{user.total_publication}} <i class="bx bx-rss"></i></h4>
+                </div>
+            </div>
+        </div>
+     </div>
+   </div>
+   <div class="col">
+     <div class="card radius-10 bg-gradient-kyoto">
+        <div class="card-body">
+            <div class="d-flex align-items-center">
+                <div class="mx-auto text-center">
+                    <p class="mb-0 text-dark">Total Messages</p>
+                    <h4 class="my-1 text-dark">{{user.total_message}} <i class="bx bx-mail-send"></i></h4>
+                </div>
+                <div id="chart4"></div>
+            </div>
+        </div>
+     </div>
+   </div> 
+ </div>
+{%else%}
+<div class="card-title">
+    <h4 class="text-uppercase">
+        suggestions
+    </h4>
+</div>
+<div class="table-responsive">
+    
+    <table class="table table-striped table-bordered bg-true-love" style="width:100%">
+        <tr>
+            {%for sug in user.suggestions%}
+            <td>
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <div>
+                                <h5 class="card-title"><img src="{%if sug.actual_photo%}{{sug.actual_photo.photo.url}}{%else%}{%static 'assets-admin/images/avatars/default-profil.png' %}{%endif%}" class="user-img mx-2" alt="user avatar">{{sug.prenom_nom_rep}}</h5>
+                            </div>
+                            <p class="card-text text-center">{{sug.bio_rep}} </p>
+                            <div class="text-center gap-2">
+                                <a href="/app/conversations/membre/{{sug.slug}}" class="btn btn-love"><i class='bx bx-message'></i>Contacter</a>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white text-end">Membre depuis <small class="text-muted">{{sug.date_enregistrement_rep}}</small>
+                        </div>
+                    </div>
+                </div>
+                
+            </td>
+            {%endfor%}
+        </tr>
+    </table>
+</div>
+
+{%endif%}
+{%endblock%}

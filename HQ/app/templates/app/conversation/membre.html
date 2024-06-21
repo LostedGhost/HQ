@@ -1,0 +1,219 @@
+{%extends "app/base.html"%}
+{%load static%}
+{%block content%}
+<div class="chat-wrapper">
+    <div class="chat-sidebar">
+        <div class="chat-sidebar-header">
+            <div class="d-flex align-items-center">
+                <div class="chat-user-online">
+                    <img src="{%if user.actual_photo%}{{user.actual_photo.photo.url}}{%else%}{%static 'assets-admin/images/avatars/default-profil.png' %}{%endif%}" width="45" height="45" class="rounded-circle" alt="" />
+                </div>
+                <div class="flex-grow-1 ms-2">
+                    <p class="mb-0">{{user.prenom_nom}}</p>
+                </div>
+            </div>
+            <div class="mb-3"></div>
+            <div class="input-group input-group-sm"> 
+                <input type="text" class="form-control" placeholder="People, groups, & messages"><span class="input-group-text bg-transparent"><i class='bx bx-search'></i></span>
+            </div>
+        </div>
+        <div class="chat-sidebar-content">
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-Chats">
+                    <div class="chat-list">
+                        <div class="list-group list-group-flush">
+                            {%if not user.conversations.exists%}
+                            <a href="/app/" class="">
+                                <div class="d-flex">
+                                    <div class="flex-grow-1 ms-2 text-center p-2">
+                                        <h6 class="mb-0 chat-title">Aucune conversation active</h6>
+                                        <p class="mb-0 chat-msg">Trouvez un membre avec qui <strong class="text-love text-uppercase">quester</strong></p>
+                                    </div>
+                                </div>
+                            </a>
+                            {%else%}
+                            {%for conv in user.conversations%}
+                            <a href="/app/conversations/membre/{%if conv.user1.id == user.id %}{{conv.user2.slug}}{%else%}{{conv.user1.slug}}{%endif%}" class="list-group-item {%if conv.user1.id == member.id or conv.user2.id == member.id %} active {%endif%}">
+                                <div class="d-flex">
+                                    <div class="chat-user-online">
+                                        <img src="{%if conv.user1.id == user.id %}{%if conv.user2.actual_photo%}{{conv.user2.actual_photo.photo.url}}{%else%}{%static 'assets-admin/images/avatars/default-profil.png' %}{%endif%}{%else%}{%if conv.user1.actual_photo%}{{conv.user1.actual_photo.photo.url}}{%else%}{%static 'assets-admin/images/avatars/default-profil.png' %}{%endif%}{%endif%}" width="42" height="42" class="rounded-circle" alt="" />
+                                    </div>
+                                    <div class="flex-grow-1 ms-2">
+                                        <h6 class="mb-0 chat-title">{%if conv.user1.id == user.id %}{{conv.user2.nom_prenom}} {%else%}{{conv.user1.nom_prenom}}{%endif%}</h6>
+                                        <p class="mb-0 chat-msg to_affiche">{{conv.last_message.truncate_me}}</p>
+                                    </div>
+                                    <div class="chat-time">{{conv.last_date}}</div>
+                                </div>
+                            </a>
+                            {%endfor%}
+                            {%endif%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="chat-header d-flex align-items-center">
+        <div class="chat-toggle-btn"><i class='bx bx-menu-alt-left'></i>
+        </div>
+        <div>
+            <h4 class="mb-1 font-weight-bold">{{member.nom_prenom}}</h4>
+            <div class="list-inline d-sm-flex mb-0 d-none"> <a href="" class="list-inline-item d-flex align-items-center text-secondary"><small class='bx bxs-circle me-1 chart-online'></small>Célibataire</a>
+            </div>
+        </div>
+        <div class="chat-top-header-menu ms-auto">
+            <a href="/app/">
+                <div>
+                    <img src="{%static 'assets-admin/images/logo-icon.png' %}" class="logo-icon" alt="logo icon">
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="chat-content">
+        {%if not conversation %}
+        <div class="">
+            <div class="card col-sm-3 py-2 mx-auto my-5">
+                <div class="flex-grow-1 me-2">
+                    <p class="text-center mx-auto"><i class="bx bx-message-x"></i></p>
+                    <p class="text-center mx-auto">Cette conversation n'a pas débutée. <br>Veuillez commencer la discussion !!!</p>
+                </div>
+            </div>
+        </div>
+        {%else%}
+        <div class="">
+            <div class="card col-sm-3 py-2 mx-auto my-5">
+                <div class="flex-grow-1 me-2">
+                    <p class="text-center mx-auto"><img src="{%if user.actual_photo%}{{user.actual_photo.photo.url}}{%else%}{%static 'assets-admin/images/avatars/default-profil.png' %}{%endif%}" class="user-img" alt="user avatar"><i class="bx bx-link"></i><img src="{%if member.actual_photo%}{{member.actual_photo.photo.url}}{%else%}{%static 'assets-admin/images/avatars/default-profil.png' %}{%endif%}" class="user-img" alt="user avatar"></p>
+                    <p class="text-center mx-auto">Cette conversation a débuté le {{conversation.date_creation}}. <br></p>
+                </div>
+            </div>
+        </div>
+        {%endif%}
+        {%for message in conversation.messages%}
+        {%if message.user.id == member.id%}
+        <div class="chat-content-leftside">
+            <div class="d-flex">
+                <img src="{%if member.actual_photo%}{{member.actual_photo.photo.url}}{%else%}{%static 'assets-admin/images/avatars/default-profil.png' %}{%endif%}" width="48" height="48" class="rounded-circle" alt="" />
+                <div class="flex-grow-1 ms-2">
+                    <p class="mb-0 chat-time">{{member.prenom}}, {{message.date_envoi_rep}}</p>
+                    <p class="chat-left-msg to_affiche" {%if message.non_lu or message.is_last %} id="first-unseen" {%endif%} style="width: max-content;">
+                        {%if message.texte%}
+                        {{message.texte_rep}}
+                        {%endif%}
+                        {%if message.image%}
+                        <img src="{{message.image.url}}" alt="Image envoyée par {{member.nom_prenom}}" width="100%">
+                        {%endif%}
+                        {%if message.video%}
+                        <video class="card-img-top w-100" controls>
+                            <source src="{{ message.video.url }}" type="video/mp4">
+                            La vidéo envoyée par {{member.nom_prenom}} n'est pas lisible.
+                        </video>
+                        {%endif%}
+                        {%if message.document%}
+                        <a href="{{message.document.url}}" download="{{message.document_name}}"><i class='bx bx-cloud-download mr-1 btn btn-outline-dark'></i></a>
+                        <br>{{message.document_name}}
+                        {%endif%}
+                        {%if message.audio%}
+                        <audio controls width="100%">
+                            <source src="{{message.audio.url}}">
+                            L'audio envoyé par {{member.nom_prenom}} n'est pas lisible.
+                        </audio>
+                        <br>
+                        {{message.audio.url}}
+                        {%endif%}
+                    </p>
+                </div>
+            </div>
+        </div>
+        {%else%}
+        <div class="chat-content-rightside">
+            <div class="d-flex ms-auto">
+                
+                <div class="flex-grow-1 me-2">
+                    <p class="mb-0 chat-time text-end">vous, {{message.date_envoi_rep}}</p>
+                    <div class="dropdown text-end my-0">
+                        <div class="cursor-pointer dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown"><i class='bx bx-dots-horizontal-rounded'></i>
+                        </div>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" href="/app/message/delete/{{message.id}}">Supprimer</a>
+                        </div>
+                    </div>
+                    <p class="chat-right-msg to_affiche text-justify" {%if message.non_lu or message.is_last %} id="first-unseen" {%endif%}>
+                        {%if message.texte%}
+                        {{message.texte_rep}}
+                        {%endif%}
+                        {%if message.image%}
+                        <img src="{{message.image.url}}" alt="Image envoyée par {{member.nom_prenom}}"  width="100%" class="mx-auto">
+                        {%endif%}
+                        {%if message.video%}
+                        <video class="card-img-top" controls width="100%">
+                            <source src="{{ message.video.url }}" type="video/mp4">
+                            La vidéo que vous avez envoyée n'est pas lisible.
+                        </video>
+                        {%endif%}
+                        {%if message.document%}
+                        <a href="{{message.document.url}}" download="{{message.document_name}}"><i class='bx bx-cloud-download mr-1 btn btn-outline-dark'></i></a>
+                        <br>{{message.document_name}}
+                        {%endif%}
+                        {%if message.audio%}
+                        <audio controls width="100%">
+                            <source src="{{message.audio.url}}">
+                            L'audio que vous avez envoyée n'est pas lisible.
+                        </audio>
+                        <br>
+                        {{message.audio.url}}
+                        {%endif%}
+                    </p>
+                </div>
+            </div>
+        </div>
+        {%endif%}
+        {%endfor%}
+    </div>
+    
+    <div class="chat-footer align-items-center">
+        
+        <form method="POST" enctype="multipart/form-data" id="myForm">
+            {%csrf_token%}
+            <div class="flex-grow-1 pe-2">
+                <div class="input-group col-sm-12">
+                    <textarea name="texte" class="form-control mx-2 col-sm-7" placeholder="Message" rows="1" style="resize: none;" id="messageInput"></textarea>
+                    <div class="chat-footer-menu d-flex col-sm-4">
+                        <div class="mobile-media-icon">
+                            <a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret mobile-media-icon" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="dots">
+                                <i class='bx bx-dots-vertical-rounded' ></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <a href="javascript:;" id="imageButton2" class="dropdown-item"><i class='bx bxs-image' ></i></a>
+                                <a href="javascript:;" id="fileButton2" class="dropdown-item"><i class='bx bx-file'></i></a>
+                                <a href="javascript:;" id="videoButton2" class="dropdown-item"><i class='bx bx-video'></i></a>
+                                <a href="javascript:;" id="startButton2" class="dropdown-item"><i class='bx bx-microphone'></i></a>
+                            </ul>
+                        </div>
+                        
+                        <a href="javascript:;" id="imageButton"><i class='bx bxs-image' ></i></a>
+                        <input type="file" id="imageInput" multiple hidden name="image" accept=".jpg, .png, image/jpeg, image/png">
+
+                        <a href="javascript:;" id="fileButton"><i class='bx bx-file'></i></a>
+                        <input type="file" id="fileInput" multiple hidden name="document">
+
+                        <a href="javascript:;" id="videoButton"><i class='bx bx-video'></i></a>
+                        <input type="file" id="videoInput" multiple hidden name="video" accept=".mp4, .mov, .avi, .wmv, .flv, .webm, .mkv, video/mp4, video/quicktime, video/x-msvideo, video/x-ms-wmv, video/x-flv, video/webm, video/x-matroska">
+
+                        <a href="javascript:;" id="startButton"><i class='bx bx-microphone'></i></a>
+                        <button id="stopButton" disabled hidden class="btn btn-white bg-danger"><i class="bx bx-stop"></i></button>
+                        <audio id="audioPlayback" controls hidden class="col-sm-12"></audio>
+                        <input type="file" id="audioInput" multiple hidden name="audio">
+                        
+                        <button type="submit" class="btn btn-light" id="send-message"><i class='bx bx-send'></i></button>
+                    </div>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+    <!--start chat overlay-->
+    <div class="overlay chat-toggle-btn-mobile"></div>
+    <!--end chat overlay-->
+</div>
+{%endblock%}

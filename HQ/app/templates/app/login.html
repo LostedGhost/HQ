@@ -1,0 +1,75 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="fr">
+
+
+<!-- Mirrored from codervent.com/HeartQuest/demo/vertical/authentication-reset-password.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 19 Aug 2021 08:02:35 GMT -->
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--favicon-->
+	<link rel="icon" href="{%static 'assets-admin/images/favicon-32x32.png' %}" type="image/png" />
+	<!-- loader-->
+	<link href="{%static 'assets-admin/css/pace.min.css' %}" rel="stylesheet" />
+	<script src="{%static 'assets-admin/js/pace.min.js' %}"></script>
+	<!-- Bootstrap CSS -->
+	<link href="{%static 'assets-admin/css/bootstrap.min.css' %}" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&amp;display=swap" rel="stylesheet">
+	<link href="{%static 'assets-admin/css/app.css' %}" rel="stylesheet">
+	<link href="{%static 'assets-admin/css/icons.css' %}" rel="stylesheet">
+	<title>App - HeartQuest</title>
+</head>
+
+<body>
+	<!-- wrapper -->
+	<div class="wrapper">
+		<div class="authentication-reset-password d-flex align-items-center justify-content-center">
+			<div class="row">
+				<div class="col-12 col-lg-10 mx-auto">
+					<div class="card">
+						<div class="row g-0">
+							<div class="col-lg-5 border-end">
+								<div class="card-body">
+									<div class="p-5">
+										<div class="text-center">
+											<img src="{%static 'assets-admin/images/logo-img.png' %}" width="180" alt="">
+										</div>
+										<h4 class="mt-5 font-weight-bold text-center">Connexion</h4>
+										<p class="text-muted text-center">Entrez vos identifiants de connexion!</p>
+										{%if error %}
+										<p class="text-center text-danger">{{error}}</p>
+										{%endif%}
+										<form method="POST">
+                                            {%csrf_token%}
+                                            <div class="mb-3 mt-5">
+                                                <label class="form-label">E-mail</label>
+                                                <input type="email" class="form-control" placeholder="example@gmail.com" name="email" />
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Mot de Passe</label>
+                                                <input type="password" class="form-control" placeholder="**********" name="password"/>
+                                            </div>
+                                            <div class="d-grid gap-2">
+                                                <button type="submit" class="btn btn-primary">Connexion</button>
+                                                <p style="font-size: 12px;" class="mt-3">N'avez-vous pas de compte ? <a href="{%url 'signup'%}" class="">Inscrivez-vous</a></p>
+                                            </div>
+                                        </form>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-7">
+								<img src="{%static 'assets-admin/images/login-images/connexion.jpg' %}" class="card-img login-img h-100" alt="...">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end wrapper -->
+</body>
+
+
+<!-- Mirrored from codervent.com/HeartQuest/demo/vertical/authentication-reset-password.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 19 Aug 2021 08:02:35 GMT -->
+</html>

@@ -1,0 +1,103 @@
+{%extends 'app/base.html' %}
+{%load static%}
+{%block content%}
+<a href="/app/my_publications/add"><button class="btn btn-love mb-3"> <i class="bx bx-plus"></i> Nouvelle publication</button></a>
+<hr class="mb-3"/>
+<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5 product-grid">
+{%if user.my_publications.count == 0%}
+<div class="col mx-auto mt-3 text-center">
+    <div class="card mb-3 mx-2">
+        <div class="card-body">
+            <div>
+                <h5 class="card-title">Aucune publication disponible</h5>
+            </div>
+            <p class="card-text">Vous n'avez encore rien publié sur votre fil d'actualité !</p>	<a href="/app/my_publications/add" class="btn btn-love">Faites une publication</a>
+        </div>
+    </div>
+</div>
+{%else%}
+    {%for publication in user.my_publications %}
+    <div class="col">
+    {%if publication.type.id == 1%}
+        
+            <div class="card">
+                <div class="card-body">
+                    <div>
+                        <h5 class="card-title"><img src="{%if user.actual_photo%}{{user.actual_photo.photo.url}}{%else%}{%static 'assets-admin/images/avatars/default-profil.png' %}{%endif%}" class="user-img mx-2" alt="user avatar">{{user.prenom_nom}}</h5>
+                    </div>
+                    <p class="card-text">{{publication.texte}} </p>
+                </div>
+                <div class="card-footer bg-white text-end"> <small class="text-muted">{{publication.temps_ecoule}}<a href="/app/my_publications/delete/{{publication.id}}" class="mx-1"><button type="button" class="btn btn-danger"><i class="bx bx-trash"></i></button></a></small>
+                </div>
+            </div>
+    {%endif%}
+    {%if publication.type.id == 2%}
+        <div class="card">
+            <div class="card-body">
+                <div>
+                    <h5 class="card-title"><img src="{%if user.actual_photo%}{{user.actual_photo.photo.url}}{%else%}{%static 'assets-admin/images/avatars/default-profil.png' %}{%endif%}" class="user-img mx-2" alt="user avatar">{{user.prenom_nom}}</h5>
+                </div>
+                <p class="card-text">{{publication.texte}} </p>
+                <div class="text-center gap-2">
+                    <a href="javascript:;" class="btn btn-love"><i class='bx bx-message'></i>Contacter</a>
+                </div>
+            </div>
+            <div class="card-footer bg-white text-end"> <small class="text-muted">{{publication.temps_ecoule}}<a href="/app/my_publications/delete/{{publication.id}}" class="mx-1"><button type="button" class="btn btn-danger"><i class="bx bx-trash"></i></button></a></small>
+            </div>
+        </div>
+    {%endif%}
+    {%if publication.type.id == 3%}
+    <div class="card">
+        <img src="{{publication.image.url}}" class="card-img-top w-100" alt="...">
+        <div class="card-body">
+            <h5 class="card-title"><img src="{%if user.actual_photo%}{{user.actual_photo.photo.url}}{%else%}{%static 'assets-admin/images/avatars/default-profil.png' %}{%endif%}" class="user-img mx-2" alt="user avatar">{{user.prenom_nom}}</h5>
+            <p class="card-text">{{publication.texte}} </p>
+        </div>
+        <div class="card-footer bg-white text-end"> <small class="text-muted">{{publication.temps_ecoule}}<a href="/app/my_publications/delete/{{publication.id}}" class="mx-1"><button type="button" class="btn btn-danger"><i class="bx bx-trash"></i></button></a></small>
+        </div>
+    </div>
+    {%endif%}
+    {%if publication.type.id == 4%}
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title"><img src="{%if user.actual_photo%}{{user.actual_photo.photo.url}}{%else%}{%static 'assets-admin/images/avatars/default-profil.png' %}{%endif%}" class="user-img mx-2" alt="user avatar">{{user.prenom_nom}}</h5>
+            <p class="card-text">{{publication.texte}} </p>
+        </div>
+        <img src="{{publication.image.url}}" class="card-img-top w-100" alt="...">
+        <div class="card-footer bg-white text-end"> <small class="text-muted">{{publication.temps_ecoule}}<a href="/app/my_publications/delete/{{publication.id}}" class="mx-1"><button type="button" class="btn btn-danger"><i class="bx bx-trash"></i></button></a></small>
+        </div>
+    </div>
+    {%endif%}
+    {%if publication.type.id == 5%}
+    <div class="card">
+        <video class="card-img-top w-100" controls>
+            <source src="{{ publication.video.url }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="card-body">
+            <h5 class="card-title"><img src="{%if user.actual_photo%}{{user.actual_photo.photo.url}}{%else%}{%static 'assets-admin/images/avatars/default-profil.png' %}{%endif%}" class="user-img mx-2" alt="user avatar">{{user.prenom_nom}}</h5>
+            <p class="card-text">{{publication.texte}} </p>
+        </div>
+        <div class="card-footer bg-white text-end"> <small class="text-muted">{{publication.temps_ecoule}}<a href="/app/my_publications/delete/{{publication.id}}" class="mx-1"><button type="button" class="btn btn-danger"><i class="bx bx-trash"></i></button></a></small>
+        </div>
+    </div>
+    {%endif%}
+    {%if publication.type.id == 6%}
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title"><img src="{%if user.actual_photo%}{{user.actual_photo.photo.url}}{%else%}{%static 'assets-admin/images/avatars/default-profil.png' %}{%endif%}" class="user-img mx-2" alt="user avatar">{{user.prenom_nom}}</h5>
+            <p class="card-text">{{publication.texte}} </p>
+        </div>
+        <video class="card-img-top w-100" controls>
+        <source src="{{ publication.video.url }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="card-footer bg-white text-end"> <small class="text-muted">{{publication.temps_ecoule}}<a href="/app/my_publications/delete/{{publication.id}}" class="mx-1"><button type="button" class="btn btn-danger"><i class="bx bx-trash"></i></button></a></small>
+        </div>
+    </div>
+    {%endif%}
+    </div>
+    {%endfor%}
+{%endif%}
+</div>
+{%endblock%}
